@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title> Count divisioners</title>
+</head>
+<body>
+<h3 style="color: blueviolet "> Đếm số ước của 1 số nguyên lớn hơn 1 và khác chính nó</h3>
+Nhập vào số cần đếm <input type="number" id="num"><br>
+<input type="button" onclick="count()" value="Count!"  style="background: blueviolet"/>
+<p id="count"> </p>
+<script>
+    function getDivisorsCnt(n){
+
+        let numDivisors = 1;
+        let factor = 2; // ước số nhỏ nhất phải là 2 nên lấy 2 là thừa số
+
+        // nếu mà số n không phải số nguyên tố thì nó là ước số
+        // chỉ cần kiểm tra đến căn bậc 2 của n
+        while (factor * factor <= n) {
+            if (n % factor === 0) {
+                // thừa số là số nguyên tố thì:
+                let exponent = 0;
+                do {
+                    n /= factor;
+                    exponent++;
+                } while (n % factor === 0)
+
+                numDivisors *= exponent + 1;
+            }
+            factor = factor == 2 ? 3 : factor + 2
+        }
+
+        // bây giờ nếu đó là số nguyên tố thì n là 1
+        // nếu không thì như sau:
+        if (n > 1) {
+            numDivisors *= 2;
+            numDivisors -=2; //để ngoại trừ 1 và chính nó
+        }
+
+        return numDivisors;
+    }
+
+    function count() {
+        let dem = 0;
+        document.getElementById('count').innerHTML = " ";
+        let num = parseInt(document.getElementById('num').value) ;
+        document.getElementById('count').innerHTML =  getDivisorsCnt(num);
+    }
+</script>
+</body>
+</html>
